@@ -26,4 +26,16 @@ class Voo {
     
     }
 }
+class Passageiro {
+    String nome;
+    int idade;
+    String cpf;
+    String email;
 
+    Passageiro(String nome, int idade, String cpf, String email) {
+        this.nome = nome;
+        this.idade = idade;
+        this.cpf = cpf;
+        this.email = email;
+    }
+}
