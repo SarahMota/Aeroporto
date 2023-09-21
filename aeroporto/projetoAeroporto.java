@@ -95,6 +95,44 @@ import java.util.LinkedList;*/
             System.out.println("Login de administrador necessário.");
         }
     }
+    public void fazerCheckIn(String numeroVoo, Passageiro passageiro) {
+        for (Voo voo : voos) {
+            if (voo.numeroVoo.equals(numeroVoo) && voo.passageiros.contains(passageiro)) {
+                passageirosCheckIn.push(passageiro);
+                System.out.println(passageiro.nome + " fez check-in para o voo " + numeroVoo);
+                return;
+            }
+        }
+        System.out.println("Passageiro não encontrado ou não reservou este voo.");
+    }
+
+    public void mostrarInfoVoo(String numeroVoo) {
+        for (Voo voo : voos) {
+            if (voo.numeroVoo.equals(numeroVoo)) {
+                System.out.println("Voo: " + voo.numeroVoo);
+                System.out.println("Origem: " + voo.origem);
+                System.out.println("Destino: " + voo.destino);
+                System.out.println("Horário de Partida: " + voo.horarioPartida);
+                System.out.println("Horário de Chegada: " + voo.horarioChegada);
+                System.out.println("Max Passageiros: " + voo.maxPassageiros);
+                System.out.print("Passageiros: ");
+                for (Passageiro passageiro : voo.passageiros) {
+                    System.out.print(passageiro.nome + ", ");
+                }
+                System.out.println();
+                System.out.print("Reservas Pendentes: ");
+                for (Passageiro passageiroPendente : voo.reservasPendentes) {
+                    System.out.print(passageiroPendente.nome + ", ");
+                }
+                System.out.println();
+                return;
+            }
+        }
+        System.out.println("Voo não encontrado."); 
+    }
+     public static void main(String[] args) {
+        Plane sistema = new Plane();
+        Scanner scanner = new Scanner(System.in);
+}
     
 }
-
