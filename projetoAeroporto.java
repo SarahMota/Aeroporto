@@ -48,4 +48,20 @@ public class projetoAeroporto {
         adminLogado = false;
         passageirosCheckIn = new Stack<>();
     }
+    public void loginComoAdmin() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Digite a senha do administrador: ");
+        if (scanner.hasNextLine()) {
+        String senha = scanner.nextLine();
+        if ("1234".equals(senha)) {
+            adminLogado = true;
+            System.out.println("Logado como administrador.");
+        } else {
+            System.out.println("Senha incorreta.");
+        }   
+        } else {
+            scanner.close();
+        }
+    }
 }
+
