@@ -37,9 +37,11 @@ public class projetoAeroporto {
         }
     }
 
-    List<Voo> voos;
-    boolean adminLogado;
-    Stack<Passageiro> passageirosCheckIn;
+    public class projetoAeroporto {
+        List<Voo> voos;
+        boolean adminLogado;
+        Stack<Passageiro> passageirosCheckIn;
+    }
 
     public projetoAeroporto() {
         voos = new ArrayList<>();
