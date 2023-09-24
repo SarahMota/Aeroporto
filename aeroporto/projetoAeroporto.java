@@ -138,7 +138,7 @@ public class projetoAeroporto{
         System.out.println("Voo não encontrado."); 
     }
      public static void main(String[] args) {
-        Plane sistema = new Plane();
+        projetoAeroporto sistema = new projetoAeroporto();
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
