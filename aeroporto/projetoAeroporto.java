@@ -4,44 +4,48 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
-/*import java.util.Queue;
-import java.util.LinkedList;*/
+import java.util.Queue;
+import java.util.LinkedList;
 
-    class Voo {
-        String numeroVoo;
-        String origem;
-        String destino;
-        String horarioPartida;
-        String horarioChegada;
-        int maxPassageiros;
+class Voo {
+    String numeroVoo;
+    String origem;
+    String destino;
+    String horarioPartida;
+    String horarioChegada;
+    int maxPassageiros;
+    List<Passageiro> passageiros;
+    Queue<Passageiro> reservasPendentes;
 
-        public Voo(String numeroVoo, String origem, String destino, String horarioPartida, String horarioChegada, int maxPassageiros) {
-            this.numeroVoo = numeroVoo;
-            this.origem = origem;
-            this.destino = destino;
-            this.horarioPartida = horarioPartida;
-            this.horarioChegada = horarioChegada;
-            this.maxPassageiros = maxPassageiros;
-        }
+    public Voo(String numeroVoo, String origem, String destino, String horarioPartida, String horarioChegada, int maxPassageiros) {
+        this.numeroVoo = numeroVoo;
+        this.origem = origem;
+        this.destino = destino;
+        this.horarioPartida = horarioPartida;
+        this.horarioChegada = horarioChegada;
+        this.maxPassageiros = maxPassageiros;
+        this.passageiros = new ArrayList<>();
+        this.reservasPendentes = new LinkedList<>();
     }
-    class Passageiro {
-        String nome;
-        int idade;
-        String cpf;
-        String email;
+}
+class Passageiro {
+    String nome;
+    int idade;
+    String cpf;
+    String email;
 
-        Passageiro(String nome, int idade, String cpf, String email) {
-            this.nome = nome;
-            this.idade = idade;
-            this.cpf = cpf;
-            this.email = email;
-        }
+    Passageiro(String nome, int idade, String cpf, String email) {
+        this.nome = nome;
+        this.idade = idade;
+        this.cpf = cpf;
+        this.email = email;
     }
+}
 
-    public class projetoAeroporto {
-        List<Voo> voos;
-        boolean adminLogado;
-        Stack<Passageiro> passageirosCheckIn;
+public class projetoAeroporto{
+    List<Voo> voos;
+    boolean adminLogado;
+    Stack<Passageiro> passageirosCheckIn;
     
     public projetoAeroporto() {
         voos = new ArrayList<>();
@@ -53,8 +57,8 @@ import java.util.LinkedList;*/
         Scanner scanner = new Scanner(System.in);
         System.out.print("Digite a senha do administrador: ");
         if (scanner.hasNextLine()) {
-         String senha = scanner.nextLine();
-         if ("1234".equals(senha)) {
+        String senha = scanner.nextLine();
+        if ("1234".equals(senha)) {
             adminLogado = true;
             System.out.println("Logado como administrador.");
         } else {
@@ -64,7 +68,8 @@ import java.util.LinkedList;*/
             scanner.close();
         }
     }
-        public void criarVoo(String numeroVoo, String origem, String destino, String horarioPartida, String horarioChegada, int maxPassageiros) {
+    
+    public void criarVoo(String numeroVoo, String origem, String destino, String horarioPartida, String horarioChegada, int maxPassageiros) {
         Voo voo = new Voo(numeroVoo, origem, destino, horarioPartida, horarioChegada, maxPassageiros);
         voos.add(voo);
         System.out.println("Voo " + numeroVoo + " criado.");
@@ -80,11 +85,12 @@ import java.util.LinkedList;*/
         }
         System.out.println("Voo não encontrado.");
     }
+
     public void processarReservas(String numeroVoo) {
         if (adminLogado) {
             for (Voo voo : voos) {
                 if (voo.numeroVoo.equals(numeroVoo)) {
-                   voo.passageiros.addAll(voo.reservasPendentes);
+                    voo.passageiros.addAll(voo.reservasPendentes);
                     voo.reservasPendentes.clear();
                     System.out.println("Reservas processadas para o voo " + numeroVoo);
                     return;
@@ -95,6 +101,7 @@ import java.util.LinkedList;*/
             System.out.println("Login de administrador necessário.");
         }
     }
+
     public void fazerCheckIn(String numeroVoo, Passageiro passageiro) {
         for (Voo voo : voos) {
             if (voo.numeroVoo.equals(numeroVoo) && voo.passageiros.contains(passageiro)) {
@@ -133,6 +140,92 @@ import java.util.LinkedList;*/
      public static void main(String[] args) {
         Plane sistema = new Plane();
         Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nMenu do Sistema do Aeroporto:");
+            System.out.println("1. Login de Administrador");
+            System.out.println("2. Criar Voo");
+            System.out.println("3. Reservar Voo");
+            System.out.println("4. Processar Reservas");
+            System.out.println("5. Fazer Check-In");
+            System.out.println("6. Mostrar Informações do Voo");
+            System.out.println("7. Sair");
+            System.out.print("Digite sua escolha: ");
+            int escolha = scanner.nextInt();
+            scanner.nextLine(); 
+
+            switch (escolha) {
+                case 1:
+                    sistema.loginComoAdmin();
+                    break;
+                case 2:
+                    System.out.print("Digite o Número do Voo: ");
+                    String numeroVoo = scanner.nextLine();
+                    System.out.print("Digite a Origem: ");
+                    String origem = scanner.nextLine();
+                    System.out.print("Digite o Destino: ");
+                    String destino = scanner.nextLine();
+                    System.out.print("Digite o Horário de Partida: ");
+                    String horarioPartida = scanner.nextLine();
+                    System.out.print("Digite o Horário de Chegada: ");
+                    String horarioChegada = scanner.nextLine();
+                    System.out.print("Digite o Máximo de Passageiros: ");
+                    int maxPassageiros = scanner.nextInt();
+                    scanner.nextLine();
+                    sistema.criarVoo(numeroVoo, origem, destino, horarioPartida, horarioChegada, maxPassageiros);
+                    break;
+                case 3:
+                System.out.print("Digite o Número do Voo: ");
+                numeroVoo = scanner.nextLine();
+                System.out.print("Digite o Nome do Passageiro: ");
+                String nome = scanner.nextLine();
+                System.out.print("Digite a Idade do Passageiro: ");
+                int idade = scanner.nextInt();
+                scanner.nextLine(); 
+                System.out.print("Digite o CPF do Passageiro: ");
+                String cpf = scanner.nextLine();
+                System.out.print("Digite o Email do Passageiro: ");
+                String email = scanner.nextLine();
+                Passageiro passageiro = new Passageiro(nome, idade, cpf, email);
+                sistema.reservarVoo(numeroVoo, passageiro);
+                break;
+                
+            case 4:
+                System.out.print("Digite o Número do Voo: ");
+                numeroVoo = scanner.nextLine();
+                sistema.processarReservas(numeroVoo);
+                break;
+            case 5:
+                System.out.print("Digite o Número do Voo: ");
+                numeroVoo = scanner.nextLine();
+                System.out.print("Digite o CPF do Passageiro: ");
+                cpf = scanner.nextLine();
+                passageiro = null;
+                for (Passageiro p : sistema.passageirosCheckIn) {
+                    if (p.cpf.equals(cpf)) {
+                        passageiro = p;
+                        break;
+                    }
+                }
+                if (passageiro == null) {
+                    System.out.println("Passageiro não encontrado ou não fez check-in.");
+                } else {
+                    sistema.fazerCheckIn(numeroVoo, passageiro);
+                }
+                break;
+            case 6:
+                System.out.print("Digite o Número do Voo: ");
+                numeroVoo = scanner.nextLine();
+                sistema.mostrarInfoVoo(numeroVoo);
+                break;
+            case 7:
+                System.out.println("Encerrando o programa...");
+                scanner.close();
+                System.exit(0);
+            default:
+                System.out.println("Escolha inválida.");
+                
+        }
+    }
 }
-    
 }
