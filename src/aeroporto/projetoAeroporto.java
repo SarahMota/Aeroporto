@@ -28,6 +28,7 @@ class Voo {
         this.reservasPendentes = new LinkedList<>();
     }
 }
+
 class Passageiro {
     String nome;
     int idade;
@@ -42,17 +43,17 @@ class Passageiro {
     }
 }
 
-public class projetoAeroporto{
+public class projetoAeroporto {
     List<Voo> voos;
     boolean adminLogado;
     Stack<Passageiro> passageirosCheckIn;
-    
+
     public projetoAeroporto() {
         voos = new ArrayList<>();
         adminLogado = false;
         passageirosCheckIn = new Stack<>();
     }
-    
+
     public void loginComoAdmin() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Digite a senha do administrador: ");
@@ -68,7 +69,7 @@ public class projetoAeroporto{
             scanner.close();
         }
     }
-    
+
     public void criarVoo(String numeroVoo, String origem, String destino, String horarioPartida, String horarioChegada, int maxPassageiros) {
         Voo voo = new Voo(numeroVoo, origem, destino, horarioPartida, horarioChegada, maxPassageiros);
         voos.add(voo);
@@ -137,7 +138,9 @@ public class projetoAeroporto{
         }
         System.out.println("Voo não encontrado."); 
     }
-     public static void main(String[] args) {
+     
+
+    public static void main(String[] args) {
         projetoAeroporto sistema = new projetoAeroporto();
         Scanner scanner = new Scanner(System.in);
 
@@ -229,3 +232,5 @@ public class projetoAeroporto{
     }
 }
 }
+
+    
